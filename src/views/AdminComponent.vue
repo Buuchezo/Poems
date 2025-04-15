@@ -84,7 +84,7 @@ label {
 
 input {
   border: 2px solid #ccc;
-  width: 35rem;
+  width: 30rem;
   border-radius: 8px;
   height: 3.2rem;
   padding: 1rem 2rem;
@@ -97,7 +97,7 @@ input::placeholder {
 }
 
 textarea {
-  width: 35rem;
+  width: 30rem;
   height: 25rem;
   padding: 1rem;
   font-size: 16px;
