@@ -32,6 +32,7 @@ section {
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
 }
 main {
   display: flex;
@@ -46,7 +47,7 @@ form {
   flex-direction: column;
 }
 textarea {
-  height: 100px;
-  width: 300px;
+  height: 10rem;
+  width: 30rem;
 }
 </style>

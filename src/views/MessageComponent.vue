@@ -54,8 +54,8 @@ export default defineComponent({
 
 <style scoped>
 .poem-detail {
-  padding: 20px;
-  height: 82vh;
+  padding: 2rem;
+  /* height: 82vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +65,7 @@ export default defineComponent({
 
 .poem-detail h2 {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
   font-weight: 900;
   font-size: 1.9rem;
 }
@@ -85,7 +85,7 @@ export default defineComponent({
 }
 
 .back-button button {
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   font-size: 1rem;
   background-color: #222;
   color: white;

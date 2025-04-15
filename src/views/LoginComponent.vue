@@ -27,7 +27,7 @@ const login = () => {
 
 <style scoped>
 .login {
-  height: 82vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,21 +40,24 @@ form {
 }
 input {
   border: 3px solid black;
-  border-radius: 12px;
-  height: 40px;
+  border-radius: 1.2rem;
+  height: 4rem;
+  font-size: 1rem;
 }
 input::placeholder {
-  padding: 10px;
+  padding: 1rem;
+  font-size: 1rem;
 }
 input:focus {
-  padding-left: 10px;
+  padding-left: 1rem;
 }
 button {
-  margin-top: 30px;
+  font-size: 1rem;
+  margin-top: 3rem;
   background-color: green;
   color: white;
   border-radius: 12px;
-  height: 30px;
+  height: 3rem;
   font-weight: bold;
 }
 </style>

@@ -29,10 +29,13 @@ export default defineComponent({
 
 <style scoped>
 h1 {
-  font-size: 30px;
+  font-size: 2rem;
   text-align: center;
   font-weight: bold;
-  margin: 30px 0;
+  margin: 1rem 0;
+}
+p {
+  font-size: 1rem;
 }
 
 img {
@@ -41,20 +44,20 @@ img {
 
 .display--container {
   background-color: #f8fafc;
-  height: 82vh;
 }
 
 .message {
-  padding: 20px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
 }
 
 .btn {
   display: inline-block;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 15px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
   font-weight: bold;
   color: white;
   background-color: #9aa6b2;

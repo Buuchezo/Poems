@@ -60,72 +60,85 @@ export default defineComponent({
 <style scoped>
 .navbar {
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   background-color: #d9eafd;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between; /* Space between title and icon */
   border-bottom: 6px solid #bcccdc;
-  font-size: 10px;
+  font-size: 1rem;
   position: relative;
 }
 
 h1 {
-  margin-left: 20px; /* Ensure no margin shifts */
+  margin-left: 2rem; /* Ensure no margin shifts */
 }
 .logo {
-  width: 80px;
-  position: absolute;
-  top: -11px;
+  width: 5rem;
+  margin-bottom: 1rem;
+  margin-left: 0.2rem;
 }
 .menu-icon {
-  width: 30px;
+  width: 2.5rem;
   cursor: pointer; /* Ensures the icon is clickable */
   position: absolute;
-  right: 20px; /* Position it on the right */
+  right: 2.5rem; /* Position it on the right */
 }
 
 .cancel-icon {
-  width: 25px; /* Smaller size for the cancel icon */
+  width: 1.5rem;
+  position: absolute;
+  right: 3rem; /* Smaller size for the cancel icon */
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 5vh; /* Position just below the navbar */
-  right: 0px; /* Align it to the right of the screen */
+  top: 10vh;
+  right: 0;
+  left: 0; /* Add this to stretch full width */
+  margin: 0 auto;
   background-color: #f8fafc;
   border: 2px solid rgba(154, 166, 178, 0.2);
-  padding: 10px;
-  width: 375px;
+  padding: 0.2rem;
+  width: 100%; /* Make it responsive */
   z-index: 100;
+
+  display: flex;
+  justify-content: center;
 }
 .dropdown-menu a {
   color: inherit;
   text-decoration: none;
   display: block;
   width: 100%;
-  padding: 8px 0;
+  padding: 1rem 0;
 }
 
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+  max-width: 400px; /* Keep items in the center */
+  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 .dropdown-menu li {
-  padding: 8px 0;
+  padding: 0.5rem 0;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-bottom: 1px solid #9aa6b2;
+  font-size: 1rem;
 }
 
 .dropdown-menu li:hover {
   background-color: #bcccdc;
   color: white;
-  font-size: 16px;
+  font-size: 1.2rem;
   border-top: 4px solid rgb(255, 255, 255);
 }
 

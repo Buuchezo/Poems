@@ -125,27 +125,28 @@ export default defineComponent({
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  height: 82vh;
+  align-items: center;
+  height: 100vh;
 }
 
 /* Poem container styles */
 .poem--container {
   flex: 1; /* Allow poem container to take up available space */
-  font-size: 15px;
-  padding: 0 20px;
+  font-size: 1.5rem;
+  padding: 0 2rem;
 }
 
 .filter {
-  margin: 10px auto;
+  margin: 1rem auto;
   width: fit-content;
-  margin-bottom: 20px;
+
   text-align: center;
 }
 
 .read-more-button {
   display: inline-block;
-  padding: 6px 12px;
-  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
   background-color: #007bff;
   color: white;
   text-align: center;
@@ -153,6 +154,7 @@ export default defineComponent({
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .read-more-button:hover {
@@ -164,27 +166,27 @@ export default defineComponent({
 }
 
 select {
-  padding: 4px 10px;
+  padding: 0.5rem 1rem;
   border-radius: 9px;
-  margin-left: 10px;
+  margin-left: 1rem;
   border: 2px solid black;
-  width: 100px;
+  width: 10rem;
 }
 label {
   font-weight: bold;
 }
 
 img {
-  width: 30px;
+  width: 3rem;
 }
 .container {
-  margin-top: 10px;
-  padding: 5px;
-  height: 150px;
-  width: 350px;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  height: 10rem;
+  width: 35rem;
   background-color: #f8fafc;
   border-radius: 12px;
-  margin: 10px auto;
+  margin: 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,7 +194,7 @@ img {
 
 .display {
   text-align: center;
-  padding: 5px;
+  padding: 0.5rem;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -202,14 +204,14 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-top: 20px;
-  padding: 20px 0;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  font-size: 1rem;
 }
 
 /* Button styles */
 .pagination button {
-  padding: 6px 12px;
+  padding: 0.5rem 1.2rem;
   border: none;
   color: #fff;
   border-radius: 6px;

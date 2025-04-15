@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border-top: 6px solid #bcccdc;
-  font-size: 12px;
+  border-top: 1rem solid #bcccdc;
+  font-size: 1rem;
 }
 </style>

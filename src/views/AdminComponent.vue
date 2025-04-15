@@ -58,7 +58,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 82vh;
+  height: 100vh;
   text-align: center;
 }
 
@@ -70,7 +70,7 @@ form {
 }
 
 .type {
-  margin-top: 10px;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,15 +79,15 @@ form {
 
 label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
 }
 
 input {
   border: 2px solid #ccc;
-  width: 350px;
+  width: 35rem;
   border-radius: 8px;
-  height: 32px;
-  padding: 5px 10px;
+  height: 3.2rem;
+  padding: 1rem 2rem;
   text-align: center;
 }
 
@@ -96,17 +96,17 @@ input::placeholder {
 }
 
 textarea {
-  width: 350px;
-  height: 450px;
-  padding: 10px;
+  width: 35rem;
+  height: 45rem;
+  padding: 1rem;
   font-size: 16px;
   border: 2px solid #ccc;
-  border-radius: 8px;
+  border-radius: 1rem;
   outline: none;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 textarea:focus {
@@ -115,14 +115,14 @@ textarea:focus {
 }
 
 button {
-  width: 250px;
-  padding: 10px;
-  font-size: 16px;
+  width: 25rem;
+  padding: 1rem;
+  font-size: 1.6rem;
   border: 2px solid #ccc;
   background-color: #fdf4e3;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 20px 0;
+  margin: 2rem 0;
   border-radius: 6px;
 }
 
@@ -135,6 +135,6 @@ button:hover {
   background-color: red;
   color: white;
   font-weight: bold;
-  width: 250px;
+  width: 25rem;
 }
 </style>
