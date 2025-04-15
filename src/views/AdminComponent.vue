@@ -89,6 +89,7 @@ input {
   height: 3.2rem;
   padding: 1rem 2rem;
   text-align: center;
+  font-size: 1rem;
 }
 
 input::placeholder {
@@ -97,7 +98,7 @@ input::placeholder {
 
 textarea {
   width: 35rem;
-  height: 45rem;
+  height: 25rem;
   padding: 1rem;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -115,15 +116,16 @@ textarea:focus {
 }
 
 button {
-  width: 25rem;
+  width: 20rem;
   padding: 1rem;
   font-size: 1.6rem;
   border: 2px solid #ccc;
-  background-color: #fdf4e3;
+  background-color: #9aa6b2;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 2rem 0;
+  margin: 1rem 0;
   border-radius: 6px;
+  color: white;
 }
 
 button:hover {
@@ -135,6 +137,6 @@ button:hover {
   background-color: red;
   color: white;
   font-weight: bold;
-  width: 25rem;
+  width: 20rem;
 }
 </style>

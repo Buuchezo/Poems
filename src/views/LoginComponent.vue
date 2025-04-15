@@ -33,6 +33,10 @@ const login = () => {
   justify-content: center;
   align-items: center;
 }
+
+h2 {
+  font-size: 1.5rem;
+}
 form {
   display: inherit;
   flex-direction: inherit;
