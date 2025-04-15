@@ -54,7 +54,7 @@ export default defineComponent({
     const isLoading = inject('isLoading')
     const selectedType = ref('')
     const currentPage = ref(1)
-    const poemsPerPage = 4
+    const poemsPerPage = 3
     const route = useRoute()
 
     const truncuatedMessage = (text) => {
