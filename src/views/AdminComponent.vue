@@ -60,6 +60,8 @@ export default defineComponent({
   justify-content: center;
   height: 100vh;
   text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 form {
@@ -80,16 +82,23 @@ form {
 label {
   font-weight: bold;
   margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+input,
+textarea {
+  width: 90%;
+  max-width: 30rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
 input {
-  border: 2px solid #ccc;
-  width: 30rem;
-  border-radius: 8px;
   height: 3.2rem;
-  padding: 1rem 2rem;
   text-align: center;
-  font-size: 1rem;
 }
 
 input::placeholder {
@@ -97,17 +106,12 @@ input::placeholder {
 }
 
 textarea {
-  width: 30rem;
   height: 25rem;
-  padding: 1rem;
-  font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 1rem;
-  outline: none;
+  resize: vertical;
+  margin-top: 2rem;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
-  margin-top: 2rem;
 }
 
 textarea:focus {
@@ -116,7 +120,8 @@ textarea:focus {
 }
 
 button {
-  width: 20rem;
+  width: 90%;
+  max-width: 20rem;
   padding: 1rem;
   font-size: 1.6rem;
   border: 2px solid #ccc;
@@ -137,6 +142,5 @@ button:hover {
   background-color: red;
   color: white;
   font-weight: bold;
-  width: 20rem;
 }
 </style>
