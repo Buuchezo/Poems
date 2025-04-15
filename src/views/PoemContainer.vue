@@ -183,7 +183,7 @@ img {
   margin-top: 1rem;
   padding: 0.5rem;
   height: 9rem;
-  width: 35rem;
+  width: 22rem;
   background-color: #f8fafc;
   border-radius: 12px;
   margin: 1rem auto;
@@ -207,7 +207,7 @@ img {
   align-items: center;
   gap: 1.5rem;
   padding: 1rem 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 /* Button styles */
