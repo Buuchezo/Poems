@@ -54,7 +54,7 @@ export default defineComponent({
     const isLoading = inject('isLoading')
     const selectedType = ref('')
     const currentPage = ref(1)
-    const poemsPerPage = 3
+    const poemsPerPage = 4
     const route = useRoute()
 
     const truncuatedMessage = (text) => {
@@ -154,7 +154,7 @@ export default defineComponent({
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .read-more-button:hover {
@@ -182,7 +182,7 @@ img {
 .container {
   margin-top: 1rem;
   padding: 0.5rem;
-  height: 10rem;
+  height: 9rem;
   width: 35rem;
   background-color: #f8fafc;
   border-radius: 12px;
@@ -190,6 +190,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgba(154, 166, 178, 0.3);
 }
 
 .display {
@@ -206,7 +207,7 @@ img {
   align-items: center;
   gap: 1.5rem;
   padding: 1rem 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 /* Button styles */
