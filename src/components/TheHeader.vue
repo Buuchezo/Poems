@@ -41,6 +41,7 @@ export default defineComponent({
 
     // Toggle the visibility of the dropdown menu
     const toggleMenu = () => {
+      
       isMenuOpen.value = !isMenuOpen.value
     }
 
