@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <img class="logo" src="../assets/poem-logo-white.webp" alt="" />
+    <img class="logo" src="../assets/poem-logo-white.webp" alt="" loading="lazy" />
 
     <!-- Burger icon or Cancel icon -->
     <img
@@ -19,7 +19,7 @@
     />
 
     <!-- Dropdown Menu -->
-    <transition name="fade">
+    <transition name="dropdown-menu">
       <div v-if="isMenuOpen" class="dropdown-menu">
         <ul>
           <li @click="handleMenuClick"><router-link to="/">Home</router-link></li>
@@ -71,6 +71,9 @@ export default defineComponent({
   border-bottom: 6px solid #bcccdc;
   font-size: 1rem;
   position: relative;
+  z-index: 10;
+
+ 
 }
 
 h1 {
@@ -105,8 +108,7 @@ h1 {
   border: 2px solid rgba(154, 166, 178, 0.2);
   padding: 0.2rem;
   width: 100%; /* Make it responsive */
-  z-index: 100;
-
+  z-index: 5;
   display: flex;
   justify-content: center;
 }
@@ -145,20 +147,21 @@ h1 {
   border-top: 4px solid rgb(255, 255, 255);
 }
 
+
+
 .dropdown-menu-enter-active,
 .dropdown-menu-leave-active {
-  transition:
-    transform 0.9s ease-out,
-    opacity 0.9s ease-out;
+  transition: transform 0.5s ease-out, opacity 0.9s ease-out;
 }
 
-.dropdown-menu-enter, .dropdown-menu-leave-to /* .dropdown-menu-leave-active in <2.1.8 */ {
-  transform: translateY(-100%); /* Start from above the screen */
+.dropdown-menu-enter-from,
+.dropdown-menu-leave-to {
+  transform: translateY(1vh);
   opacity: 0;
 }
 
 .dropdown-menu-enter-to {
-  transform: translateY(0); /* Slide down to normal position */
-  opacity: 1; /* Fade in */
+  transform: translateY(0);
+  opacity: 1;
 }
 </style>

@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomepageComponent from '@/views/HomepageComponent.vue'
-import PoemContainer from '@/views/PoemContainer.vue'
-import AdminComponent from '@/views/AdminComponent.vue'
-import LoginComponent from '@/views/LoginComponent.vue'
-import MessageComponent from '@/views/MessageComponent.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,23 +13,23 @@ const router = createRouter({
     {
       path: '/poems',
       name: 'poems',
-      component: PoemContainer,
+      component: () => import('@/views/PoemContainer.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginComponent,
+      component: () => import('@/views/LoginComponent.vue'),
     },
     {
       path: '/admin',
       name: 'admin',
-      component: AdminComponent,
+      component: () => import('@/views/AdminComponent.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/poem/:id', // Poem ID will be passed in URL
       name: 'PoemDetails',
-      component: MessageComponent,
+      component: () => import('@/views/MessageComponent.vue'),
       props: true, // Makes the route params available as props in MessageComponent
     },
   ],
