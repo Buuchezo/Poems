@@ -1,6 +1,6 @@
 <template>
   <div class="poem-detail">
-    <h2>Poem Details</h2>
+    <h2>{{poem.title}}</h2>
     <div v-if="poem">
       <p>{{ poem.poem }}</p>
     </div>
@@ -35,6 +35,7 @@ export default defineComponent({
       const data = await response.json()
       poem.value = {
         type: data.type,
+        title:data.title,
         poem: data.poem,
       }
     })

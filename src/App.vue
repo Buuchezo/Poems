@@ -25,7 +25,7 @@ export default defineComponent({
     const isLoading = ref(false)
     const poems = ref('[]')
 
-    const submitPoem = async ({ type, poem }) => {
+    const submitPoem = async ({ type,title, poem }) => {
       await fetch('https://poems-1eaf3-default-rtdb.firebaseio.com/poems.json', {
         method: 'POST',
         headers: {
@@ -33,7 +33,9 @@ export default defineComponent({
         },
 
         body: JSON.stringify({
+         
           type: type,
+          title:title,
           poem: poem,
         }),
       })
@@ -67,7 +69,7 @@ export default defineComponent({
 
         const result = []
         for (const id in data) {
-          result.push({ id: id, type: data[id].type, poem: data[id].poem.replaceAll(',', '') })
+          result.push({ id: id, type: data[id].type,title:data[id].title, poem: data[id].poem.replaceAll(',', '') })
         }
 
         poems.value = result

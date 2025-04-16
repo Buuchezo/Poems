@@ -3,37 +3,65 @@
     <form @submit.prevent="handleSubmit">
       <div class="type">
         <label for="type">Type</label>
-        <input type="text" id="type" placeholder="Set Type..." v-model.trim="poemType" />
+        <input type="text" id="type" placeholder="Set Type..." v-model="poemType" />
+        <p class="error" v-if="errors.type">{{ errors.type }}</p>
       </div>
-      <textarea v-model.trim="enteredPoem" placeholder="Write your poem here..."></textarea>
-      <button>Submit</button>
+
+      <div class="title">
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="Poem Title..." v-model="poemTitle" />
+        <p class="error" v-if="errors.title">{{ errors.title }}</p>
+      </div>
+
+      <textarea v-model="enteredPoem" placeholder="Write your poem here..."></textarea>
+      <p class="error" v-if="errors.poem">{{ errors.poem }}</p>
+
+      <button type="submit">Submit</button>
     </form>
+
+    <!-- ✅ Restored logout button -->
     <button class="logout" @click="logout">Logout</button>
   </div>
 </template>
+
 
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  emits: ['submit-poem'], // Declare emitted event
+  emits: ['submit-poem'],
 
   setup(props, { emit }) {
     const router = useRouter()
     const enteredPoem = ref('')
     const poemType = ref('')
+    const poemTitle = ref('')
+
+    const errors = ref({
+      title: '',
+      type: '',
+      poem: ''
+    })
+
+    const validateForm = () => {
+      errors.value.title = poemTitle.value.trim() ? '' : 'Title is required.'
+      errors.value.type = poemType.value.trim() ? '' : 'Type is required.'
+      errors.value.poem = enteredPoem.value.trim() ? '' : 'Poem is required.'
+
+      return !errors.value.title && !errors.value.type && !errors.value.poem
+    }
 
     const handleSubmit = () => {
-      if (poemType.value && enteredPoem.value) {
+      if (validateForm()) {
         emit('submit-poem', {
-          type: poemType.value,
-          poem: enteredPoem.value,
+          title: poemTitle.value.trim(),
+          type: poemType.value.trim(),
+          poem: enteredPoem.value.trim(),
         })
-        enteredPoem.value = ''
+        poemTitle.value = ''
         poemType.value = ''
-      } else {
-        alert('Please fill out both fields.')
+        enteredPoem.value = ''
       }
     }
 
@@ -45,12 +73,16 @@ export default defineComponent({
     return {
       enteredPoem,
       poemType,
+      poemTitle,
       handleSubmit,
       logout,
+      errors
     }
-  },
+  }
 })
+
 </script>
+
 
 <style scoped>
 .admin--container {
@@ -83,6 +115,13 @@ label {
   font-weight: bold;
   margin-bottom: 1rem;
   font-size: 1.2rem;
+}
+.title {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 input,
@@ -121,8 +160,8 @@ textarea:focus {
 
 button {
   width: 90%;
-  max-width: 20rem;
-  padding: 1rem;
+  max-width: 10rem;
+  padding: 0.5rem;
   font-size: 1.6rem;
   border: 2px solid #ccc;
   background-color: #9aa6b2;
@@ -142,5 +181,11 @@ button:hover {
   background-color: red;
   color: white;
   font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
 }
 </style>

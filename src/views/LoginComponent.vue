@@ -2,7 +2,8 @@
   <div class="login">
     <h2>Admin Login</h2>
     <form @submit.prevent="login">
-      <input type="password" v-model="password" placeholder="Enter password" />
+      <input type="email" v-model="email" placeholder="Enter email" required />
+      <input type="password" v-model="password" placeholder="Enter password" required />
       <button type="submit">Login</button>
     </form>
   </div>
@@ -11,16 +12,20 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const router = useRouter()
+const email = ref('')
 const password = ref('')
 
-const login = () => {
-  if (password.value === 'admin123') {
+const login = async () => {
+  try {
+    await signInWithEmailAndPassword(auth, email.value, password.value)
     localStorage.setItem('loggedIn', 'true')
     router.push('/admin')
-  } else {
-    alert('Wrong password')
+  } catch (error) {
+    alert('Login failed: ' + error.message)
   }
 }
 </script>
