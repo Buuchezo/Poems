@@ -79,7 +79,7 @@ h1 {
 .logo {
   width: 5rem;
   margin-bottom: 1rem;
-  margin-left: 1rem;
+  margin-left: 1.4rem;
 }
 .menu-icon {
   width: 2.5rem;
