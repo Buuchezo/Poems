@@ -20,6 +20,22 @@ const email = ref('')
 const password = ref('')
 
 const login = async () => {
+  if (!email.value || !password.value) {
+    alert('Please fill in all fields.')
+    return
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailPattern.test(email.value)) {
+    alert('Please enter a valid email address.')
+    return
+  }
+
+  if (password.value.length < 6) {
+    alert('Password must be at least 6 characters long.')
+    return
+  }
+
   try {
     await signInWithEmailAndPassword(auth, email.value, password.value)
     localStorage.setItem('loggedIn', 'true')
@@ -29,6 +45,7 @@ const login = async () => {
   }
 }
 </script>
+
 
 <style scoped>
 .login {
