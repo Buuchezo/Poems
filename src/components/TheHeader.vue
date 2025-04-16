@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <img class="logo" src="../assets/poem-logo-white.png" alt="" />
+    <img class="logo" src="../assets/poem-logo-white.webp" alt="" />
 
     <!-- Burger icon or Cancel icon -->
     <img
