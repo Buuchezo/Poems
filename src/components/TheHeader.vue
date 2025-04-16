@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <img class="logo" src="../assets/poem-logo-black.png" alt="" />
+    <img class="logo" src="../assets/poem-logo-white.png" alt="" />
 
     <!-- Burger icon or Cancel icon -->
     <img
@@ -62,7 +62,8 @@ export default defineComponent({
 .navbar {
   width: 100%;
   height: 10vh;
-  background-color: #d9eafd;
+  background-color: black;
+  /* background-color: #d9eafd; */
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -84,7 +85,8 @@ h1 {
   width: 2.5rem;
   cursor: pointer; /* Ensures the icon is clickable */
   position: absolute;
-  right: 2.5rem; /* Position it on the right */
+  right: 2.5rem; 
+  filter: invert(1)
 }
 
 .cancel-icon {
