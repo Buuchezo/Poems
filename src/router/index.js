@@ -32,6 +32,11 @@ const router = createRouter({
       component: () => import('@/views/MessageComponent.vue'),
       props: true, // Makes the route params available as props in MessageComponent
     },
+    {
+      path: '/edit/:id',
+      name: 'EditPoem',
+      component: () => import('@/views/EditPoemComponent.vue') // adjust path as needed
+    }
   ],
 })
 

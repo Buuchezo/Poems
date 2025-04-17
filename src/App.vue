@@ -2,7 +2,11 @@
   <div class="container">
     <the-header></the-header>
     <transition name="fade" mode="out-in">
-      <router-view @submit-poem="handlePoemSubmission"></router-view>
+      <router-view
+  @submit-poem="handlePoemSubmission"
+  @edit-poem="handleEditPoem"
+  @delete-poem="handleDeletePoem"
+/>
     </transition>
     <the-footer></the-footer>
   </div>
@@ -33,7 +37,7 @@ export default defineComponent({
         },
 
         body: JSON.stringify({
-         
+
           type: type,
           title:title,
           poem: poem,
@@ -76,12 +80,29 @@ export default defineComponent({
       }
     }
 
+    const handleEditPoem = (poem) => {
+  router.push({ name: 'EditPoem', params: { id: poem.id } })
+}
+
+const handleDeletePoem = async (id) => {
+  try {
+    await fetch(`https://poems-1eaf3-default-rtdb.firebaseio.com/poems/${id}.json`, {
+      method: 'DELETE'
+    })
+    await getPoem()
+  } catch (error) {
+    console.error('Error deleting poem:', error)
+  }
+}
+
     return {
       submitPoem,
       getPoem,
       poems,
       isLoading,
       handlePoemSubmission,
+      handleEditPoem,
+      handleDeletePoem
     }
   },
 })

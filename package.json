@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "firebase": "^11.6.0",
+    "firebase-admin": "^13.2.0",
+    "googleapis": "^148.0.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
     "vuetify": "^3.8.1"

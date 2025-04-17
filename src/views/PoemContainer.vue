@@ -15,6 +15,10 @@
       <div class="container" v-for="poem in paginatedPoems" :key="poem.id">
         <pre
           class="display">{{ `${truncuatedMessage(poem.poem)}...` }}<br><router-link :to="{ name: 'PoemDetails', params: { id: poem.id },query: { page: currentPage } }" class="read-more-button">Read more</router-link></pre>
+          <div class="button">
+            <button class="edit-btn" @click="editPoem(poem)">Edit</button>
+            <button class="delete-btn"  @click="deletePoem(poem.id)">Delete</button>
+          </div>
       </div>
     </div>
 
@@ -49,7 +53,8 @@ import { defineComponent, inject, ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  setup() {
+  emits: ['edit-poem', 'delete-poem'],
+  setup(_,{emit}) {
     const poems = inject('poems')
     const isLoading = inject('isLoading')
     const selectedType = ref('')
@@ -60,6 +65,15 @@ export default defineComponent({
     const truncuatedMessage = (text) => {
       return text.slice(0, 60)
     }
+
+    const editPoem = (poem) => {
+  emit('edit-poem', poem)
+}
+
+const deletePoem = (id) => {
+  emit('delete-poem', id)
+}
+
 
     const uniqueTypes = computed(() => {
       return [...new Set(poems.value.map((poem) => poem.type))]
@@ -115,6 +129,8 @@ export default defineComponent({
       paginatedPoems,
       nextPage,
       prevPage,
+      editPoem,
+      deletePoem
     }
   },
 })
@@ -145,7 +161,7 @@ export default defineComponent({
 
 .read-more-button {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.8rem;
   margin-top: 1rem;
   background-color: #007bff;
   color: white;
@@ -159,6 +175,13 @@ export default defineComponent({
 
 .read-more-button:hover {
   background-color: #0056b3;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
 }
 
 .read-more-button:active {
@@ -182,12 +205,13 @@ img {
 .container {
   margin-top: 1rem;
   padding: 0.5rem;
-  height: 9rem;
+  height: 11rem;
   width: 22rem;
   background-color: #f8fafc;
   border-radius: 12px;
   margin: 1rem auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(154, 166, 178, 0.3);
@@ -222,5 +246,20 @@ img {
 .disabled-img {
   filter: grayscale(100%);
   opacity: 0.5;
+}
+
+button{
+  width:3rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  color: white;
+}
+.delete-btn{
+  background-color: tomato;
+
+}
+.edit-btn{
+  background-color: #0056b3;
+
 }
 </style>
