@@ -1,4 +1,13 @@
 <template>
+  <div v-if="authReady">
+    <p style="font-size: 0.8rem">
+      Auth status: <strong>{{ currentUser ? '✅ Logged In' : '❌ Logged Out' }}</strong>
+    </p>
+
+    <div v-if="authReady && currentUser" class="logout-wrapper">
+      <button @click="logout" class="logout-btn">Logout</button>
+    </div>
+  </div>
   <div class="content-wrapper">
     <!-- Main Poem Content Section -->
     <div class="poem--container" v-if="!isLoading">
@@ -15,10 +24,10 @@
       <div class="container" v-for="poem in paginatedPoems" :key="poem.id">
         <pre
           class="display">{{ `${truncuatedMessage(poem.poem)}...` }}<br><router-link :to="{ name: 'PoemDetails', params: { id: poem.id },query: { page: currentPage } }" class="read-more-button">Read more</router-link></pre>
-          <div class="button">
-            <button class="edit-btn" @click="editPoem(poem)">Edit</button>
-            <button class="delete-btn"  @click="deletePoem(poem.id)">Delete</button>
-          </div>
+        <div class="button" v-if="authReady && currentUser">
+          <button class="edit-btn" @click="editPoem(poem)">Edit</button>
+          <button class="delete-btn" @click="deletePoem(poem.id)">Delete</button>
+        </div>
       </div>
     </div>
 
@@ -51,10 +60,13 @@
 <script>
 import { defineComponent, inject, ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { auth } from '@/firebase'
+import { signOut } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default defineComponent({
   emits: ['edit-poem', 'delete-poem'],
-  setup(_,{emit}) {
+  setup(_, { emit }) {
     const poems = inject('poems')
     const isLoading = inject('isLoading')
     const selectedType = ref('')
@@ -62,18 +74,22 @@ export default defineComponent({
     const poemsPerPage = 3
     const route = useRoute()
 
+    const currentUser = ref(null)
+    const authReady = ref(false)
+
     const truncuatedMessage = (text) => {
       return text.slice(0, 60)
     }
 
     const editPoem = (poem) => {
-  emit('edit-poem', poem)
-}
+      if (!currentUser.value) return
+      emit('edit-poem', poem)
+    }
 
-const deletePoem = (id) => {
-  emit('delete-poem', id)
-}
-
+    const deletePoem = (id) => {
+      if (!currentUser.value) return
+      emit('delete-poem', id)
+    }
 
     const uniqueTypes = computed(() => {
       return [...new Set(poems.value.map((poem) => poem.type))]
@@ -93,6 +109,14 @@ const deletePoem = (id) => {
       const end = start + poemsPerPage
       return filteredPoems.value.slice(start, end)
     })
+    const logout = async () => {
+      try {
+        await signOut(auth)
+        currentUser.value = null
+      } catch (error) {
+        console.error('Error signing out:', error)
+      }
+    }
 
     const nextPage = () => {
       if (currentPage.value < totalPages.value) {
@@ -114,6 +138,11 @@ const deletePoem = (id) => {
       if (route.query.page) {
         currentPage.value = parseInt(route.query.page)
       }
+
+      onAuthStateChanged(auth, (user) => {
+        currentUser.value = user
+        authReady.value = true
+      })
     })
 
     return {
@@ -130,7 +159,10 @@ const deletePoem = (id) => {
       nextPage,
       prevPage,
       editPoem,
-      deletePoem
+      deletePoem,
+      currentUser,
+      authReady,
+      logout,
     }
   },
 })
@@ -177,11 +209,10 @@ const deletePoem = (id) => {
   background-color: #0056b3;
 }
 
-.button{
+.button {
   display: flex;
   justify-content: center;
   gap: 2rem;
-
 }
 
 .read-more-button:active {
@@ -216,6 +247,26 @@ img {
   align-items: center;
   border: 1px solid rgba(154, 166, 178, 0.3);
 }
+.logout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-btn {
+  background-color: #dc3545;
+  border: none;
+  width: 4rem;
+  height: 2rem;
+  font-size: 1rem;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}
 
 .display {
   text-align: center;
@@ -248,18 +299,16 @@ img {
   opacity: 0.5;
 }
 
-button{
-  width:3rem;
+button {
+  width: 3rem;
   height: 1.5rem;
   border-radius: 6px;
   color: white;
 }
-.delete-btn{
+.delete-btn {
   background-color: tomato;
-
 }
-.edit-btn{
+.edit-btn {
   background-color: #0056b3;
-
 }
 </style>
