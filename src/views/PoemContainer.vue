@@ -45,7 +45,7 @@
           :class="{ 'disabled-img': currentPage === 1 }"
         />
       </button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <p>Page {{ currentPage }} of {{ totalPages }}</p>
       <button @click="nextPage" :disabled="currentPage === totalPages">
         <img
           src="../assets/arrow-right-circle.svg"
@@ -80,7 +80,7 @@ export default defineComponent({
     const authReady = ref(false)
 
     const truncuatedMessage = (text) => {
-      return text.slice(0, 60)
+      return text.slice(0, 40)
     }
 
     const editPoem = (poem) => {
@@ -197,7 +197,7 @@ export default defineComponent({
 .read-more-button {
   display: inline-block;
   padding: 0.3rem 0.8rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   background-color: #007bff;
   color: white;
   text-align: center;
@@ -218,6 +218,10 @@ export default defineComponent({
   gap: 2rem;
 }
 
+button img {
+  width: 2rem;
+}
+
 .read-more-button:active {
   background-color: #003f7f;
 }
@@ -233,13 +237,9 @@ label {
   font-weight: bold;
 }
 
-img {
-  width: 3rem;
-}
 .container {
-  margin-top: 1rem;
   padding: 0.5rem;
-  height: 11rem;
+  height: 9rem;
   width: 22rem;
   background-color: #f8fafc;
   border-radius: 12px;
@@ -290,7 +290,7 @@ img {
 
 /* Button styles */
 .pagination button {
-  padding: 0.5rem 1.2rem;
+  padding-bottom: 2rem;
   border: none;
   color: #fff;
   border-radius: 6px;

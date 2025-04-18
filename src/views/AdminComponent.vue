@@ -2,7 +2,7 @@
   <div class="admin--container">
     <form @submit.prevent="handleSubmit">
       <div class="type">
-        <label for="type">Type</label>
+        <label for="type">Category</label>
         <input type="text" id="type" placeholder="Set Type..." v-model="poemType" />
         <p class="error" v-if="errors.type">{{ errors.type }}</p>
       </div>
