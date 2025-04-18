@@ -1,20 +1,22 @@
 <template>
   <div class="poem-detail">
-    <h2>{{poem.title}}</h2>
+    <!-- Only render content when poem is loaded -->
     <div v-if="poem">
+      <h2>{{ poem.title }}</h2>
       <p>{{ poem.poem }}</p>
+
+      <!-- Back Button -->
+      <div class="back-button">
+        <button @click="goBack">Back to Poems</button>
+      </div>
     </div>
+
+    <!-- Fallback while loading -->
     <div v-else>
       <p>Loading poem details...</p>
     </div>
-
-    <!-- Back Button -->
-    <div class="back-button">
-      <button @click="goBack">Back to Poems</button>
-    </div>
   </div>
 </template>
-
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -35,7 +37,7 @@ export default defineComponent({
       const data = await response.json()
       poem.value = {
         type: data.type,
-        title:data.title,
+        title: data.title,
         poem: data.poem,
       }
     })

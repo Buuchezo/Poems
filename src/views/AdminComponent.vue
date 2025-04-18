@@ -24,10 +24,11 @@
   </div>
 </template>
 
-
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 export default defineComponent({
   emits: ['submit-poem'],
@@ -37,11 +38,12 @@ export default defineComponent({
     const enteredPoem = ref('')
     const poemType = ref('')
     const poemTitle = ref('')
+    const isLoggedIn = ref(false)
 
     const errors = ref({
       title: '',
       type: '',
-      poem: ''
+      poem: '',
     })
 
     const validateForm = () => {
@@ -65,9 +67,14 @@ export default defineComponent({
       }
     }
 
-    const logout = () => {
-      localStorage.removeItem('loggedIn')
-      router.push('/')
+    const logout = async () => {
+      try {
+        await signOut(auth)
+        isLoggedIn.value = false
+        router.push('/login') // ✅ Redirects to homepage instead of login
+      } catch (error) {
+        alert('Logout failed: ' + error.message)
+      }
     }
 
     return {
@@ -76,13 +83,11 @@ export default defineComponent({
       poemTitle,
       handleSubmit,
       logout,
-      errors
+      errors,
     }
-  }
+  },
 })
-
 </script>
-
 
 <style scoped>
 .admin--container {

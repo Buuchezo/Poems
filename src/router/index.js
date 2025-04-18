@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomepageComponent from '@/views/HomepageComponent.vue'
-
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,18 +36,36 @@ const router = createRouter({
     {
       path: '/edit/:id',
       name: 'EditPoem',
-      component: () => import('@/views/EditPoemComponent.vue') // adjust path as needed
-    }
+      component: () => import('@/views/EditPoemComponent.vue'),
+    },
   ],
 })
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('loggedIn') === 'true'
+let isAuthChecked = false
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+
+  const checkAuth = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (requiresAuth && !user) {
+        next('/login')
+      } else {
+        next()
+      }
+    })
+  }
+
+  if (!isAuthChecked) {
+    isAuthChecked = true
+    checkAuth()
   } else {
-    next()
+    const user = auth.currentUser
+    if (requiresAuth && !user) {
+      next('/login')
+    } else {
+      next()
+    }
   }
 })
 

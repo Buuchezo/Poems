@@ -63,6 +63,7 @@ import { useRoute } from 'vue-router'
 import { auth } from '@/firebase'
 import { signOut } from 'firebase/auth'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   emits: ['edit-poem', 'delete-poem'],
@@ -73,6 +74,7 @@ export default defineComponent({
     const currentPage = ref(1)
     const poemsPerPage = 3
     const route = useRoute()
+    const router = useRouter()
 
     const currentUser = ref(null)
     const authReady = ref(false)
@@ -113,6 +115,7 @@ export default defineComponent({
       try {
         await signOut(auth)
         currentUser.value = null
+        router.push('/login')
       } catch (error) {
         console.error('Error signing out:', error)
       }
@@ -251,14 +254,17 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  top: -0.9rem;
+  right: -16.5rem;
 }
 
 .logout-btn {
   background-color: #dc3545;
   border: none;
   width: 4rem;
-  height: 2rem;
-  font-size: 1rem;
+  height: 1.5rem;
+  font-size: 0.6rem;
   color: white;
   border-radius: 6px;
   cursor: pointer;
