@@ -254,9 +254,6 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: -0.9rem;
-  right: -16.5rem;
 }
 
 .logout-btn {
