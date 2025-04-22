@@ -184,27 +184,33 @@ export default defineComponent({
 
 <style>
 * {
+  box-sizing: border-box;
   font-size: 62.5%;
 }
+
 html,
 body {
   margin: 0;
   padding: 0;
-}
-
-body {
-  width: 37.5rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto; /* Enables vertical scrollbar when needed */
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
 
-.container {
+body {
   display: flex;
   flex-direction: column;
-  height: 120vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 37.5rem; /* Still the same as your desired fixed layout width */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 0 1rem; /* Optional padding for mobile spacing */
 }
 
 .content {
