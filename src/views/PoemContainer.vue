@@ -264,7 +264,7 @@ label {
 .container {
   padding: 0.5rem;
   height: 12rem;
-  width: 30rem;
+  width: 25rem;
   height: 9rem;
   background-color: #f8fafc;
   border-radius: 12px;
