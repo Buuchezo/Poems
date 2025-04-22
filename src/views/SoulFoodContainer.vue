@@ -7,30 +7,32 @@
     </div>
     <div class="content-wrapper">
       <!-- SoulFood Content -->
-      <div class="soulfood--container" v-if="!isLoading">
-        <div class="container" v-for="item in paginatedSoulFoods" :key="item.id">
-          <p class="display">
-            {{ `${truncateText(item.content)}...` }}
-          </p>
-          <!-- Buttons and "Read more" in the same container -->
-          <div class="button-container">
-            <button class="edit-btn" @click="editSoulFood(item)">Edit</button>
-            <router-link
-              :to="{
-                name: 'SoulFoodDetails',
-                params: { id: item.id },
-                query: { page: currentPage },
-              }"
-              class="read-more-button"
-            >
-              Read more
-            </router-link>
-            <button class="delete-btn" @click="deleteSoulFood(item.id)">Delete</button>
+      <div class="main-content">
+        <div class="soulfood--container" v-if="!isLoading">
+          <div class="container" v-for="item in paginatedSoulFoods" :key="item.id">
+            <p class="display">
+              {{ `${truncateText(item.content)}...` }}
+            </p>
+            <!-- Buttons and "Read more" in the same container -->
+            <div class="button-container">
+              <button class="edit-btn" @click="editSoulFood(item)">Edit</button>
+              <router-link
+                :to="{
+                  name: 'SoulFoodDetails',
+                  params: { id: item.id },
+                  query: { page: currentPage },
+                }"
+                class="read-more-button"
+              >
+                Read more
+              </router-link>
+              <button class="delete-btn" @click="deleteSoulFood(item.id)">Delete</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div v-else>
-        <p>Loading...</p>
+        <div v-else>
+          <p>Loading...</p>
+        </div>
       </div>
       <!-- Pagination -->
       <div class="pagination" v-if="soulFoods.length > itemsPerPage">
@@ -149,11 +151,11 @@ export default defineComponent({
   align-items: center;
 }
 
-.soulfood--container {
+.main-content {
   flex: 1;
-  font-size: 1rem;
-  padding: 0 2rem;
+  width: 100%;
 }
+
 button img {
   width: 2rem;
 }
@@ -176,7 +178,7 @@ button img {
 }
 
 .button-container {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -184,12 +186,13 @@ button img {
 }
 
 .container {
+  width: 100%;
+  max-width: 25rem;
+  margin: 1rem auto;
   padding: 0.5rem;
-  height: 12rem;
-  width: 25rem;
+  height: 10rem;
   background-color: #f8fafc;
   border-radius: 12px;
-  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -213,6 +216,13 @@ button img {
   border-radius: 6px;
   cursor: pointer;
   margin-top: 2rem;
+}
+
+.soulfood--container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logout-btn:hover {

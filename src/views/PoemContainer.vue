@@ -7,7 +7,7 @@
     </div>
     <div class="content-wrapper">
       <!-- Main content that grows to push pagination to the bottom -->
-      <div style="flex: 1; width: 100%">
+      <div class="main-content">
         <div class="poem--container" v-if="!isLoading">
           <!-- Filter dropdown -->
           <div class="filter">
@@ -179,14 +179,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-}
 p {
   font-size: 1rem;
 }
@@ -195,37 +187,38 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+}
+.main-content {
+  flex: 1;
+  width: 100%;
 }
 
 /* Poem container styles */
 .poem--container {
-  flex: 1; /* Allow poem container to take up available space */
-
-  font-size: 1.5rem;
-  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .filter {
   margin: 1rem auto;
-
   width: fit-content;
-
   text-align: center;
 }
 
 .read-more-button {
-  display: inline-block;
-
+  padding: 0.25rem 0.75rem;
   height: 2rem;
-  padding: 0.3rem 0.8rem;
   background-color: #007bff;
   color: white;
-  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 6px;
   font-weight: bold;
   font-size: 0.8rem;
+  display: inline-block;
   cursor: pointer;
-  text-decoration: none;
 }
 .read-more-button:hover {
   background-color: #0056b3;
@@ -262,11 +255,13 @@ label {
 }
 
 .container {
+  width: 100%;
+  max-width: 25rem;
+  margin: 1rem auto;
   padding: 0.5rem;
   height: 10rem;
   background-color: #f8fafc;
   border-radius: 12px;
-  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
