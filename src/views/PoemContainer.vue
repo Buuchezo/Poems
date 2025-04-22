@@ -1,9 +1,6 @@
 <template>
   <div>
     <div v-if="authReady">
-      <p style="font-size: 0.8rem">
-        Auth status: <strong>{{ currentUser ? '✅ Logged In' : '❌ Logged Out' }}</strong>
-      </p>
       <div v-if="authReady && currentUser" class="logout-wrapper">
         <button @click="logout" class="logout-btn">Logout</button>
       </div>
@@ -269,7 +266,6 @@ label {
   height: 12rem;
   width: 30rem;
   height: 9rem;
-  width: 22rem;
   background-color: #f8fafc;
   border-radius: 12px;
   margin: 1rem auto;
@@ -295,6 +291,7 @@ label {
   color: white;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 2rem;
 }
 
 .logout-btn:hover {
@@ -314,15 +311,6 @@ label {
   align-items: center;
   gap: 1rem;
   margin-top: 0.5rem;
-}
-
-button {
-  width: 4rem;
-  height: 2rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: white;
-  cursor: pointer;
 }
 
 .edit-btn {
@@ -370,9 +358,11 @@ button img {
 }
 
 button {
-  width: 3rem;
-  height: 1.5rem;
+  width: 4rem;
+  height: 2rem;
   border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: white;
 }
 .delete-btn {

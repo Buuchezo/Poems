@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="main--container">
     <the-header></the-header>
     <main class="content">
       <transition name="fade" mode="out-in">
@@ -202,7 +202,7 @@ body {
   flex-direction: column;
 }
 
-.container {
+.main--container {
   width: 100%;
   max-width: 37.5rem; /* Still the same as your desired fixed layout width */
   margin: 0 auto;
@@ -210,7 +210,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
-  padding: 0 1rem; /* Optional padding for mobile spacing */
 }
 
 .content {
