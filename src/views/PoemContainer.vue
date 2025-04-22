@@ -263,9 +263,8 @@ label {
 
 .container {
   padding: 0.5rem;
-  height: 12rem;
+  height: 10rem;
   width: 25rem;
-  height: 9rem;
   background-color: #f8fafc;
   border-radius: 12px;
   margin: 1rem auto;
@@ -291,7 +290,7 @@ label {
   color: white;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .logout-btn:hover {
