@@ -17,11 +17,14 @@ const router = createRouter({
       component: () => import('@/views/PoemContainer.vue'),
     },
     {
+<<<<<<< HEAD
       path: '/soul-food',
       name: 'soulFood',
       component: () => import('@/views/SoulFoodContainer.vue'),
     },
     {
+=======
+>>>>>>> 0f9e58ab00736e0d00eacffcbf80390f9463522a
       path: '/login',
       name: 'login',
       component: () => import('@/views/LoginComponent.vue'),
@@ -37,6 +40,7 @@ const router = createRouter({
       name: 'PoemDetails',
       component: () => import('@/views/MessageComponent.vue'),
       props: true, // Makes the route params available as props in MessageComponent
+<<<<<<< HEAD
       meta: { type: 'poem' },
     },
     {
@@ -56,6 +60,14 @@ const router = createRouter({
       name: 'editsoulfood',
       component: () => import('@/views/EditSoulFoodComponent.vue'),
     },
+=======
+    },
+    {
+      path: '/edit/:id',
+      name: 'EditPoem',
+      component: () => import('@/views/EditPoemComponent.vue'),
+    },
+>>>>>>> 0f9e58ab00736e0d00eacffcbf80390f9463522a
   ],
 })
 
