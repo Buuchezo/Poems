@@ -80,6 +80,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: 100%;
 }
 
 .poem-detail h2 {
@@ -100,7 +101,7 @@ export default defineComponent({
 
 /* Styling the Back Button */
 .back-button {
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .container {
@@ -119,11 +120,12 @@ export default defineComponent({
   cursor: pointer;
 }
 .text {
-  border-radius: 8px;
-  width: 90%;
+  border-radius: 35px 0px 35px 0px;
+  background-color: rgba(221, 221, 221, 0.3);
   min-height: 25rem;
   padding: 1rem;
   position: relative;
+  border: solid 1px rgb(215, 215, 215);
 }
 .copyright {
   margin-top: 1rem;
