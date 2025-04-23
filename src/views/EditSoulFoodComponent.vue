@@ -74,7 +74,7 @@ export default defineComponent({
 
 <style scoped>
 .edit-container {
-  width: 30rem;
+  width: 90%;
   margin: 2rem auto;
   padding: 2rem;
   background: #f9f9f9;
