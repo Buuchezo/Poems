@@ -85,7 +85,7 @@ export default defineComponent({
   text-align: center;
   margin: 2rem 0;
   font-weight: 900;
-  font-size: 1.9rem;
+  font-size: 1.5rem;
 }
 
 .poem-detail h3 {
