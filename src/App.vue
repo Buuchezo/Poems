@@ -2,16 +2,19 @@
   <div class="main--container">
     <the-header></the-header>
     <main class="content">
-      <transition name="fade" mode="out-in">
-        <router-view
-          @submit-poem="handlePoemSubmission"
-          @submit-soulfood="handleSoulFoodSubmission"
-          @edit-poem="handleEditPoem"
-          @delete-poem="handleDeletePoem"
-          @edit-soulfood="handleEditSoulFood"
-          @delete-soulfood="handleDeleteSoulFood"
-        />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component
+            :is="Component"
+            @submit-poem="handlePoemSubmission"
+            @submit-soulfood="handleSoulFoodSubmission"
+            @edit-poem="handleEditPoem"
+            @delete-poem="handleDeletePoem"
+            @edit-soulfood="handleEditSoulFood"
+            @delete-soulfood="handleDeleteSoulFood"
+          />
+        </transition>
+      </router-view>
     </main>
     <the-footer></the-footer>
   </div>
@@ -69,6 +72,7 @@ export default defineComponent({
           content: content,
         }),
       })
+      await getSoulFood()
     }
 
     const handleSoulFoodSubmission = async (soulFoodData) => {
@@ -76,18 +80,13 @@ export default defineComponent({
 
       // Optionally redirect or confirm
       localStorage.removeItem('loggedIn')
-      router.push('/soulfood') // ✅ Make sure this route exists for listing them
+      router.push('/soul-food') // ✅ Make sure this route exists for listing them
     }
 
     provide('poems', poems)
     provide('isLoading', isLoading)
     provide('submitPoem', submitPoem)
     provide('soulFoods', soulFoods)
-
-    onMounted(() => {
-      getPoem()
-      getSoulFood()
-    })
 
     const getPoem = async () => {
       isLoading.value = true
@@ -127,7 +126,7 @@ export default defineComponent({
           result.push({
             id: id,
             title: data[id].title,
-            content: data[id].content.replaceAll(',', ''),
+            content: data[id].content?.replaceAll(',', '') || '',
           })
         }
 
@@ -166,10 +165,16 @@ export default defineComponent({
       }
     }
 
+    onMounted(() => {
+      getPoem()
+      getSoulFood()
+    })
+
     return {
       submitPoem,
       getPoem,
       poems,
+      soulFoods,
       isLoading,
       handlePoemSubmission,
       handleEditPoem,

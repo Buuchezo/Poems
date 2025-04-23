@@ -78,7 +78,7 @@ export default defineComponent({
     const router = useRouter()
 
     const truncateText = (text) => text.slice(0, 40)
-
+    console.log(soulFoods)
     const totalPages = computed(() => Math.ceil(soulFoods.value.length / itemsPerPage))
 
     const paginatedSoulFoods = computed(() => {
@@ -116,6 +116,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      console.log('SoulFoods:', soulFoods.value)
       if (route.query.page) {
         currentPage.value = parseInt(route.query.page)
       }

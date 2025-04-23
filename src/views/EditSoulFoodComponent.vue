@@ -8,8 +8,8 @@
       </div>
 
       <div class="form-group">
-        <label for="poem">Poem</label>
-        <textarea id="poem" v-model="poem" rows="8" required></textarea>
+        <label for="poem">Soulfood</label>
+        <textarea id="poem" v-model="content" rows="8" required></textarea>
       </div>
 
       <button type="submit" class="submit-button">Save Changes</button>
@@ -27,9 +27,8 @@ export default defineComponent({
     const router = useRouter()
     const soulFoodId = route.params.id
 
-    const type = ref('')
     const title = ref('')
-    const poem = ref('')
+    const content = ref('')
 
     const fetchPoem = async () => {
       const response = await fetch(
@@ -39,7 +38,7 @@ export default defineComponent({
         const data = await response.json()
 
         title.value = data.title
-        poem.value = data.content
+        content.value = data.content
       } else {
         alert('Failed to load poem.')
       }
@@ -52,9 +51,8 @@ export default defineComponent({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: type.value,
           title: title.value,
-          poem: poem.value,
+          content: content.value,
         }),
       })
 
@@ -66,10 +64,9 @@ export default defineComponent({
     })
 
     return {
-      type,
       title,
-      poem,
       submitEdit,
+      content,
     }
   },
 })
