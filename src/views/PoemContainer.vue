@@ -22,14 +22,16 @@
             <p class="display">{{ `${truncuatedMessage(poem.poem)}...` }}</p>
             <!-- Buttons and "Read more" link in the same container -->
             <div class="button-container">
-              <button class="edit-btn" @click="editPoem(poem)">Edit</button>
+              <button v-if="currentUser" class="edit-btn" @click="editPoem(poem)">Edit</button>
               <router-link
                 :to="{ name: 'PoemDetails', params: { id: poem.id }, query: { page: currentPage } }"
                 class="read-more-button"
               >
                 Read more
               </router-link>
-              <button class="delete-btn" @click="deletePoem(poem.id)">Delete</button>
+              <button v-if="currentUser" class="delete-btn" @click="deletePoem(poem.id)">
+                Delete
+              </button>
             </div>
           </div>
         </div>

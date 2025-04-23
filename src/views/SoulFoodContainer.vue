@@ -15,7 +15,7 @@
             </p>
             <!-- Buttons and "Read more" in the same container -->
             <div class="button-container">
-              <button class="edit-btn" @click="editSoulFood(item)">Edit</button>
+              <button v-if="currentUser" class="edit-btn" @click="editSoulFood(item)">Edit</button>
               <router-link
                 :to="{
                   name: 'SoulFoodDetails',
@@ -26,7 +26,9 @@
               >
                 Read more
               </router-link>
-              <button class="delete-btn" @click="deleteSoulFood(item.id)">Delete</button>
+              <button v-if="currentUser" class="delete-btn" @click="deleteSoulFood(item.id)">
+                Delete
+              </button>
             </div>
           </div>
         </div>
