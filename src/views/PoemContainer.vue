@@ -203,12 +203,6 @@ p {
   align-items: center;
 }
 
-.filter {
-  margin: 1rem auto;
-  width: fit-content;
-  text-align: center;
-}
-
 .read-more-button {
   padding: 0.25rem 0.75rem;
   height: 2rem;
@@ -242,18 +236,6 @@ button img {
 
 .read-more-button:active {
   background-color: #003f7f;
-}
-
-select {
-  padding: 0.5rem 1rem;
-  border-radius: 9px;
-  margin-left: 1rem;
-  border: 2px solid black;
-  width: 10rem;
-}
-
-label {
-  font-weight: bold;
 }
 
 .container {
@@ -365,5 +347,34 @@ button {
 }
 .edit-btn {
   background-color: #0056b3;
+}
+.filter {
+  margin: 1rem auto;
+  width: fit-content;
+  text-align: center;
+}
+
+select {
+  padding: 0.5rem 1rem; /* Adjust padding to make the select box larger */
+  border-radius: 6px; /* Rounded corners */
+  margin-left: 1rem;
+  border: 2px solid #ccc; /* Light gray border */
+  background-color: #fff; /* White background */
+  font-size: 1rem; /* Set a readable font size */
+  color: #333; /* Set text color */
+  width: 10rem; /* Make the width auto adjust based on content */
+}
+
+label {
+  font-weight: bold; /* Ensures the label text stands out */
+  color: #333; /* Dark color to ensure good visibility */
+  font-size: 1rem; /* Set font size to ensure readability */
+  display: inline-block; /* Ensure the label is treated as a block element */
+  margin-right: 0.5rem; /* Add space between label and select dropdown */
+}
+
+option {
+  font-size: 1rem;
+  padding: 0.5rem; /* Padding for options */
 }
 </style>
