@@ -126,6 +126,7 @@ export default defineComponent({
   padding: 1rem;
   position: relative;
   border: solid 1px rgb(215, 215, 215);
+  width: 96%;
 }
 .copyright {
   margin-top: 1rem;
