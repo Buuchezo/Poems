@@ -1,8 +1,10 @@
 <template>
   <div class="poem-detail">
-    <div v-if="entry">
+    <div class="container" v-if="entry">
       <h2>{{ entry.title }}</h2>
-      <p>{{ entryContent }}</p>
+      <div class="text">
+        <p>{{ entryContent }}</p>
+      </div>
 
       <!-- Back Button -->
       <div class="back-button">
@@ -71,8 +73,7 @@ export default defineComponent({
 
 <style scoped>
 .poem-detail {
-  padding: 2rem;
-  /* height: 82vh; */
+  /* padding: 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +83,7 @@ export default defineComponent({
 
 .poem-detail h2 {
   text-align: center;
-  margin-bottom: 4rem;
+  margin: 2rem 0;
   font-weight: 900;
   font-size: 1.9rem;
 }
@@ -101,14 +102,28 @@ export default defineComponent({
   margin-top: 20px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .back-button button {
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   background-color: #222;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.text {
+  border: solid 1px rgb(212, 212, 212);
+  border-radius: 8px;
+  width: 90%;
+  min-height: 25rem;
+  padding: 1rem;
+  background-color: rgba(233, 233, 233, 0.3);
 }
 
 .back-button button:hover {

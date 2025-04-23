@@ -103,7 +103,6 @@ label {
 input,
 textarea {
   width: 100%;
-
   padding: 0.8rem;
   border-radius: 6px;
   border: 1px solid #ccc;
