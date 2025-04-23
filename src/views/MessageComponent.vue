@@ -4,6 +4,7 @@
       <h2>{{ entry.title }}</h2>
       <div class="text">
         <p>{{ entryContent }}</p>
+        <p class="copyright">@ARS</p>
       </div>
 
       <!-- Back Button -->
@@ -99,7 +100,7 @@ export default defineComponent({
 
 /* Styling the Back Button */
 .back-button {
-  margin-top: 20px;
+  margin-bottom: 1rem;
 }
 
 .container {
@@ -118,14 +119,15 @@ export default defineComponent({
   cursor: pointer;
 }
 .text {
-  border: solid 1px rgb(212, 212, 212);
   border-radius: 8px;
   width: 90%;
   min-height: 25rem;
   padding: 1rem;
-  background-color: rgba(233, 233, 233, 0.3);
+  position: relative;
 }
-
+.copyright {
+  margin-top: 1rem;
+}
 .back-button button:hover {
   background-color: #444;
 }
