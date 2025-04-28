@@ -231,4 +231,42 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+/* Tablet (>=600px) */
+@media (min-width: 600px) {
+  .main--container {
+    max-width: 60rem; /* 600px */
+    /* padding: 2rem; More breathing room */
+  }
+}
+
+/* Small Laptop (>=768px) */
+@media (min-width: 768px) {
+  .main--container {
+    max-width: 80rem; /* 800px */
+    /* padding: 2.5rem; */
+  }
+}
+
+/* Medium Laptop (>=1024px) */
+@media (min-width: 1024px) {
+  .main--container {
+    max-width: 96rem; /* 960px */
+    /* padding: 3rem; */
+  }
+}
+
+/* Desktop (>=1440px) */
+@media (min-width: 1440px) {
+  .main--container {
+    max-width: 114rem; /* 1140px */
+    /* padding: 4rem; */
+  }
+}
+/* Desktop (>=2160px) */
+@media (min-width: 2160px) {
+  .main--container {
+    max-width: 216rem; /* 2160px */
+    /* padding: 4rem; */
+  }
+}
 </style>

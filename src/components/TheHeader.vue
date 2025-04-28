@@ -1,14 +1,14 @@
 <template>
   <div class="navbar">
-    <img class="logo" src="../assets/poem-logo-white.webp" alt="" loading="lazy" />
+    <img class="logo" src="../assets/poem-logo-white.webp" alt="Logo" loading="lazy" />
 
-    <!-- Burger icon or Cancel icon -->
+    <!-- Burger Menu (Mobile Only) -->
     <img
       v-if="!isMenuOpen"
       src="../assets/burger.svg"
       alt="Burger Icon"
       @click="toggleMenu"
-      class="menu-icon"
+      class="menu-icon burger-icon"
     />
     <img
       v-if="isMenuOpen"
@@ -18,19 +18,27 @@
       class="menu-icon cancel-icon"
     />
 
-    <!-- Dropdown Menu -->
+    <!-- Dropdown Menu (Mobile Only) -->
     <transition name="dropdown-menu">
-      <div v-if="isMenuOpen" class="dropdown-menu">
+      <div v-if="isMenuOpen" class="dropdown-menu mobile-menu">
         <ul>
           <li @click="handleMenuClick"><router-link to="/">Home</router-link></li>
           <li @click="handleMenuClick"><router-link to="/poems">Poems</router-link></li>
-
           <li @click="handleMenuClick"><router-link to="/soul-food">Soul Food</router-link></li>
-
-          <li @click="handleMenuClick"><router-link to="/admin">admin</router-link></li>
+          <li @click="handleMenuClick"><router-link to="/admin">Admin</router-link></li>
         </ul>
       </div>
     </transition>
+
+    <!-- Horizontal Menu (Desktop Only) -->
+    <nav class="desktop-menu">
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/poems">Poems</router-link></li>
+        <li><router-link to="/soul-food">Soul Food</router-link></li>
+        <li><router-link to="/admin">Admin</router-link></li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -65,63 +73,56 @@ export default defineComponent({
   width: 100%;
   height: 10vh;
   background-color: black;
-  /* background-color: #d9eafd; */
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between title and icon */
+  justify-content: space-between;
   border-bottom: 6px solid #bcccdc;
   font-size: 1rem;
   position: relative;
   z-index: 10;
+  padding: 0 2rem; /* Mobile default padding */
 }
 
-h1 {
-  margin-left: 2rem; /* Ensure no margin shifts */
-}
 .logo {
-  width: 5rem;
-  margin-bottom: 1rem;
-  margin-left: 1.4rem;
+  width: auto;
+  max-height: 80%; /* Logo never taller than 80% of navbar height */
+  margin-bottom: 0.5rem; /* Remove bottom margin for perfect centering */
+  object-fit: contain; /* Keep proportions */
 }
+
+/* Mobile menu icon (burger / cancel) */
 .menu-icon {
-  width: 2.5rem;
-  cursor: pointer; /* Ensures the icon is clickable */
+  width: auto;
+  max-height: 50%; /* Always smaller than the navbar height */
+  cursor: pointer;
   position: absolute;
-
   right: 2.5rem;
   filter: invert(1);
-
-  right: 2.5rem;
-  filter: invert(1);
+  object-fit: contain;
 }
 
 .cancel-icon {
-  width: 1.5rem;
-  position: absolute;
-  right: 3rem; /* Smaller size for the cancel icon */
+  width: auto;
+  max-height: 30%; /* Cancel icon smaller by design */
+  right: 3rem;
+  object-fit: contain;
 }
 
+/* Dropdown menu (mobile) */
 .dropdown-menu {
   position: absolute;
   top: 10vh;
   right: 0;
-  left: 0; /* Add this to stretch full width */
+  left: 0;
   margin: 0 auto;
   background-color: #f8fafc;
   border: 2px solid rgba(154, 166, 178, 0.2);
   padding: 0.2rem;
-  width: 100%; /* Make it responsive */
+  width: 100%;
   z-index: 5;
   display: flex;
   justify-content: center;
-}
-.dropdown-menu a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  padding: 1rem 0;
 }
 
 .dropdown-menu ul {
@@ -129,15 +130,12 @@ h1 {
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 400px; /* Keep items in the center */
+  max-width: 400px;
   text-align: center;
-  padding: 0;
-  margin: 0;
 }
 
 .dropdown-menu li {
   padding: 0.5rem 0;
-  text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-bottom: 1px solid #9aa6b2;
@@ -148,25 +146,76 @@ h1 {
 .dropdown-menu li:hover {
   background-color: #bcccdc;
   color: white;
-  font-size: 1.2rem;
-  border-top: 4px solid rgb(255, 255, 255);
+  border-top: 4px solid white;
 }
 
+/* Dropdown animation */
 .dropdown-menu-enter-active,
 .dropdown-menu-leave-active {
   transition:
     transform 0.5s ease-out,
     opacity 0.9s ease-out;
 }
-
 .dropdown-menu-enter-from,
 .dropdown-menu-leave-to {
   transform: translateY(1vh);
   opacity: 0;
 }
-
 .dropdown-menu-enter-to {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Desktop menu */
+.desktop-menu {
+  display: none; /* Hide by default */
+}
+
+/* Desktop adjustments (≥1024px) */
+@media (min-width: 1024px) {
+  .navbar {
+    padding: 0 10rem; /* More center aligned */
+  }
+
+  .logo {
+    width: 10rem; /* Bigger logo */
+  }
+
+  .menu-icon {
+    display: none; /* Hide burger/cancel icons */
+  }
+
+  .mobile-menu {
+    display: none; /* Hide mobile dropdown */
+  }
+
+  .desktop-menu {
+    display: block;
+  }
+
+  .desktop-menu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 3rem;
+  }
+
+  .desktop-menu li {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .desktop-menu a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .desktop-menu a:hover {
+    color: #bcccdc;
+  }
 }
 </style>
