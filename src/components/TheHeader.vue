@@ -86,15 +86,15 @@ export default defineComponent({
 
 .logo {
   width: auto;
-  max-height: 80%; /* Logo never taller than 80% of navbar height */
-  margin-bottom: 0.5rem; /* Remove bottom margin for perfect centering */
-  object-fit: contain; /* Keep proportions */
+  max-height: 80%;
+  margin-bottom: 0.5rem;
+  object-fit: contain;
 }
 
 /* Mobile menu icon (burger / cancel) */
 .menu-icon {
   width: auto;
-  max-height: 50%; /* Always smaller than the navbar height */
+  max-height: 50%;
   cursor: pointer;
   position: absolute;
   right: 2.5rem;
@@ -104,7 +104,7 @@ export default defineComponent({
 
 .cancel-icon {
   width: auto;
-  max-height: 30%; /* Cancel icon smaller by design */
+  max-height: 30%;
   right: 3rem;
   object-fit: contain;
 }
@@ -174,27 +174,27 @@ export default defineComponent({
   opacity: 1;
 }
 
-/* Desktop menu */
+/* Desktop menu (hidden by default) */
 .desktop-menu {
-  display: none; /* Hide by default */
+  display: none;
 }
 
 /* Desktop adjustments (≥1024px) */
 @media (min-width: 1024px) {
   .navbar {
-    padding: 0 10rem; /* More center aligned */
+    padding: 0 10rem;
   }
 
   .logo {
-    width: 10rem; /* Bigger logo */
+    width: 10rem;
   }
 
   .menu-icon {
-    display: none; /* Hide burger/cancel icons */
+    display: none;
   }
 
   .mobile-menu {
-    display: none; /* Hide mobile dropdown */
+    display: none;
   }
 
   .desktop-menu {
@@ -214,16 +214,46 @@ export default defineComponent({
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+    position: relative; /* important */
   }
 
   .desktop-menu a {
     color: white;
     text-decoration: none;
     transition: color 0.3s ease;
+    position: relative; /* added */
   }
 
   .desktop-menu a:hover {
     color: #bcccdc;
+  }
+
+  /* Default hidden underline */
+  .desktop-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 2px;
+    background-color: #bcccdc;
+    transition: width 0.3s ease;
+  }
+
+  /* Grow underline on hover */
+  .desktop-menu a:hover::after {
+    width: 100%;
+  }
+
+  /* 🛠 KEEP underline if active */
+  .desktop-menu a.router-link-exact-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 2px;
+    background-color: #bcccdc;
   }
 }
 </style>
