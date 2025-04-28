@@ -143,15 +143,24 @@ export default defineComponent({
 }
 
 .dropdown-menu li {
-  padding: 0.5rem 0;
+  padding: 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-bottom: 1px solid #9aa6b2;
   font-size: 1.3rem;
   font-weight: 600;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 0;
+  text-decoration: none;
+  color: #505050;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #9aa6b2;
+}
+
+.dropdown-menu li a:hover {
   background-color: #bcccdc;
   color: white;
   border-top: 4px solid white;
