@@ -125,6 +125,14 @@ export default defineComponent({
   justify-content: center;
 }
 
+.dropdown-menu a {
+  text-decoration: none;
+  color: #505050;
+}
+.dropdown-menu a:hover {
+  color: #ffffff;
+}
+
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
