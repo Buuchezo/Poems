@@ -167,6 +167,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* General Text */
+p {
+  font-size: 1rem;
+}
+
+/* Entire Wrapper */
 .content-wrapper {
   display: flex;
   flex-direction: column;
@@ -174,7 +180,7 @@ export default defineComponent({
   width: 100%;
 }
 
-/* Hero Image */
+/* Hero Image (hidden on mobile by default) */
 .hero-image-wrapper {
   display: none;
 }
@@ -184,7 +190,7 @@ export default defineComponent({
   object-fit: cover;
 }
 
-/* Main content */
+/* Main Content */
 .main-content {
   flex: 1;
   width: 100%;
@@ -195,16 +201,25 @@ export default defineComponent({
   padding: 1rem;
 }
 
-/* Soulfood container */
-.soulfood--container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Filter Section */
+.filter {
+  margin: 1rem auto;
+  text-align: center;
+}
+select {
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  width: 10rem;
+}
+label {
+  font-weight: bold;
 }
 
-/* Wrapper for cards */
-.soulfood-cards-wrapper {
+/* Poem Cards Wrapper */
+.poem-cards-wrapper {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -212,9 +227,9 @@ export default defineComponent({
   gap: 2rem;
 }
 
-/* Each card */
+/* Each Poem Card */
 .container {
-  flex: 1 1 250px;
+  flex: 1 1 250px; /* Grow/Shrink but minimum width 250px */
   max-width: 320px;
   min-width: 250px;
   background-color: #f8fafc;
@@ -235,6 +250,7 @@ export default defineComponent({
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Display text inside card */
 .display {
   font-size: 1rem;
   text-align: center;
@@ -242,12 +258,13 @@ export default defineComponent({
   word-wrap: break-word;
 }
 
+/* Button container inside each poem */
 .button-container {
-  margin-top: 0.5rem;
   display: flex;
   justify-content: center;
-  gap: 1rem;
   align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* Buttons */
@@ -261,6 +278,7 @@ button {
   border: none;
   cursor: pointer;
 }
+
 .edit-btn {
   background-color: #0056b3;
 }
@@ -286,7 +304,7 @@ button {
   background-color: #003f7f;
 }
 
-/* Logout */
+/* Logout button styles */
 .logout-wrapper {
   display: flex;
   justify-content: center;
@@ -294,13 +312,14 @@ button {
 }
 .logout-btn {
   background-color: #dc3545;
+  border: none;
   width: 4rem;
   height: 1.5rem;
   font-size: 0.6rem;
-  border-radius: 6px;
   color: white;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .logout-btn:hover {
   background-color: #c82333;
@@ -324,18 +343,31 @@ button img {
   opacity: 0.5;
 }
 
-/* Responsive Breakpoints */
+/* Hero fade-in animation */
+.hero-image-wrapper {
+  animation: fadeIn 0.8s ease forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-/* Tablet */
+/* Tablet (≥768px) */
 @media (min-width: 768px) {
   .container {
-    flex: 1 1 45%;
+    flex: 1 1 45%; /* 2 cards per row on tablet */
     max-width: 400px;
     padding: 2rem;
   }
 }
 
-/* Desktop */
+/* Desktop (≥1024px) */
 @media (min-width: 1024px) {
   .hero-image-wrapper {
     display: block;
@@ -344,17 +376,18 @@ button img {
     overflow: hidden;
     margin-bottom: 2rem;
   }
+
   .container {
-    flex: 1 1 30%;
+    flex: 1 1 30%; /* 3 cards per row if space allows */
     max-width: 450px;
     padding: 2.5rem;
   }
 }
 
-/* Large desktop */
+/* Large Desktop (≥1200px) */
 @media (min-width: 1200px) {
   .container {
-    flex: 1 1 25%;
+    flex: 1 1 25%; /* 4 cards per row */
     max-width: 500px;
     padding: 3rem;
   }
