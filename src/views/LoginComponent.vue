@@ -2,7 +2,7 @@
   <div class="login">
     <h2>Admin Login</h2>
 
-    <!-- 👇 Show Login Form if NOT Logged In -->
+    <!-- 👇 Login Form -->
     <form @submit.prevent="login" v-if="!isLoggedIn">
       <input type="email" v-model="email" placeholder="Enter email" required />
 
@@ -20,10 +20,10 @@
         ></i>
       </div>
 
-      <button type="submit">Login</button>
+      <button type="submit" class="login-btn">Login</button>
     </form>
 
-    <!-- 👇 Show Logout Button if Logged In -->
+    <!-- 👇 Logout button -->
     <button v-if="isLoggedIn" class="logout-btn" @click="logout">Logout</button>
   </div>
 </template>
@@ -40,14 +40,14 @@ const password = ref('')
 const showPassword = ref(false)
 const isLoggedIn = ref(false)
 
-// ✅ Watch Firebase Auth State
+// ✅ Firebase Auth Watch
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     isLoggedIn.value = !!user
   })
 })
 
-// ✅ Login
+// ✅ Login Handler
 const login = async () => {
   if (!email.value || !password.value) {
     alert('Please fill in all fields.')
@@ -73,7 +73,7 @@ const login = async () => {
   }
 }
 
-// ✅ Logout
+// ✅ Logout Handler
 const logout = async () => {
   try {
     await signOut(auth)
@@ -87,77 +87,112 @@ const logout = async () => {
 
 <style scoped>
 .login {
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 90vh;
+  padding: 2rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
 form {
-  display: inherit;
-  flex-direction: inherit;
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  gap: 1.5rem;
 }
 
 input {
-  border: 3px solid black;
-  border-radius: 1.2rem;
-  height: 4rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  height: 3.5rem;
   font-size: 1rem;
-  margin-bottom: 1rem;
-  padding-left: 1rem;
+  padding: 0 1rem;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
 input::placeholder {
-  font-size: 1rem;
+  font-size: 0.9rem;
+  color: #999;
 }
 
+/* Password field */
 .password-wrapper {
   position: relative;
   width: 100%;
 }
 
 .password-wrapper input {
-  width: 100%;
   padding-right: 3rem;
 }
 
 .eye-icon {
   position: absolute;
-  right: 1.2rem;
-  top: 40%;
+  top: 50%;
+  right: 1rem;
   transform: translateY(-50%);
+  font-size: 1.3rem;
+  color: #666;
   cursor: pointer;
-  font-size: 1.4rem;
-  color: rgba(51, 51, 51, 0.5);
-  height: 1.4rem;
-  width: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  pointer-events: all;
 }
 
+/* Buttons */
 button {
-  font-size: 1rem;
-  margin-top: 3rem;
-  background-color: green;
-  color: white;
-  border-radius: 12px;
   height: 3rem;
-  font-weight: bold;
   border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.login-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.login-btn:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
 }
 
 .logout-btn {
   background-color: crimson;
+  color: white;
+  margin-top: 2rem;
+  width: 10rem;
+}
+
+.logout-btn:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login {
+    padding: 1rem;
+  }
+
+  form {
+    width: 90%;
+  }
 }
 </style>

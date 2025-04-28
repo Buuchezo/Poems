@@ -1,7 +1,13 @@
 <template>
   <div class="poem-detail">
+    <!-- Hero Image -->
+    <!-- <div class="hero-image-wrapper">
+      <img src="../assets/pexels-arnie-chou-304906-1151513.webp" alt="Poem Hero" />
+    </div> -->
+
     <div class="container" v-if="entry">
       <h2>{{ entry.title }}</h2>
+
       <div class="text">
         <p>{{ entryContent }}</p>
         <p class="copyright">@ARS</p>
@@ -14,7 +20,7 @@
     </div>
 
     <!-- Loading fallback -->
-    <div v-else>
+    <div v-else class="loading">
       <p>Loading {{ isPoem ? 'poem' : 'soul food' }} details...</p>
     </div>
   </div>
@@ -30,7 +36,7 @@ export default defineComponent({
     const router = useRouter()
 
     const entry = ref(null)
-    const entryType = route.meta.type || route.query.type || 'poem' // fallback to poem
+    const entryType = route.meta.type || route.query.type || 'poem'
     const entryId = route.params.id
     const currentPage = route.query.page || 1
 
@@ -73,65 +79,124 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* Overall Layout */
+/* Overall Layout */
 .poem-detail {
-  /* padding: 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
   width: 100%;
+  padding: 2rem 1rem;
 }
 
-.poem-detail h2 {
-  text-align: center;
-  margin: 2rem 0;
-  font-weight: 900;
-  font-size: 1.5rem;
+/* Hero Image */
+.hero-image-wrapper {
+  display: none; /* Hide on mobile by default */
+}
+.hero-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.poem-detail h3 {
-  font-size: 1.5rem;
-}
-
-.poem-detail p {
-  font-size: 1.1rem;
-  white-space: pre-wrap;
-}
-
-/* Styling the Back Button */
-.back-button {
-  margin: 1rem 0;
-}
-
+/* Content Container */
 .container {
+  width: 100%;
+  max-width: 900px; /* ✅ Limit width */
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
+/* Title */
+h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 2rem 0;
+  color: #222;
+}
+
+/* Text Content */
+.text {
+  background-color: rgba(221, 221, 221, 0.3);
+  border: 1px solid #d7d7d7;
+  border-radius: 35px 0px 35px 0px;
+  padding: 2rem;
+  width: 100%;
+  min-height: 25rem;
+  text-align: center; /* Important: left-align the poem for readability */
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6; /* Make poems easier to read */
+  white-space: pre-wrap; /* ✅ preserve poem formatting (line breaks, spaces) */
+  word-wrap: break-word;
+}
+
+/* Copyright */
+.copyright {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Back Button */
+.back-button {
+  margin-top: 2rem;
+}
 .back-button button {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   background-color: #222;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
-.text {
-  border-radius: 35px 0px 35px 0px;
-  background-color: rgba(221, 221, 221, 0.3);
-  min-height: 25rem;
-  padding: 1rem;
-  position: relative;
-  border: solid 1px rgb(215, 215, 215);
-  width: 96%;
-}
-.copyright {
-  margin-top: 1rem;
-}
+
 .back-button button:hover {
   background-color: #444;
+  transform: translateY(-2px);
+}
+
+/* Loading fallback */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 2rem;
+}
+
+/* --- Responsive Breakpoints --- */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-image-wrapper {
+    display: block;
+    width: 100vw;
+    height: 22rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .container {
+    max-width: 900px;
+    padding: 0 3rem;
+  }
+  .text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1100px;
+  }
 }
 </style>

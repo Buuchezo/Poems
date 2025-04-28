@@ -74,7 +74,7 @@ p {
   border-radius: 1.5rem;
   font-weight: bold;
   color: white;
-  background-color: #9aa6b2;
+  background-color: #2488ec;
   text-decoration: none;
   transition:
     background-color 0.3s ease,

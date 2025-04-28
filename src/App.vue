@@ -1,6 +1,12 @@
 <template>
   <div class="main--container">
-    <the-header></the-header>
+    <the-header />
+
+    <!-- Only show HeroBanner on certain pages -->
+    <div v-if="showHeroBanner" class="hero-banner-wrapper">
+      <hero-banner />
+    </div>
+
     <main class="content">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
@@ -16,27 +22,35 @@
         </transition>
       </router-view>
     </main>
-    <the-footer></the-footer>
+
+    <the-footer />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, provide, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, ref, provide, onMounted, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import TheHeader from './components/TheHeader.vue'
 import TheFooter from './components/TheFooter.vue'
+import HeroBanner from './components/HeroBanner.vue'
 
 export default defineComponent({
   components: {
     TheHeader,
     TheFooter,
+    HeroBanner,
   },
 
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const isLoading = ref(false)
     const poems = ref('[]')
     const soulFoods = ref([])
+
+    const showHeroBanner = computed(() => {
+      return ['poems', 'PoemDetails', 'soulFood', 'SoulFoodDetails'].includes(route.name)
+    })
 
     const submitPoem = async ({ type, title, poem }) => {
       await fetch('https://poems-1eaf3-default-rtdb.firebaseio.com/poems.json', {
@@ -176,6 +190,7 @@ export default defineComponent({
       poems,
       soulFoods,
       isLoading,
+      showHeroBanner,
       handlePoemSubmission,
       handleEditPoem,
       handleDeletePoem,
@@ -231,6 +246,13 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+.hero-banner-wrapper {
+  display: none; /* Hidden by default */
+  width: 100%;
+}
+
+/* Show the hero banner only on desktop and above */
+
 /* Tablet (>=600px) */
 @media (min-width: 600px) {
   .main--container {
@@ -252,6 +274,10 @@ body {
   .main--container {
     max-width: 96rem; /* 960px */
     /* padding: 3rem; */
+  }
+  .hero-banner-wrapper {
+    display: block;
+    margin-bottom: 2rem;
   }
 }
 

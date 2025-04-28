@@ -1,15 +1,21 @@
 <template>
   <div>
     <div v-if="authReady">
-      <div v-if="authReady && currentUser" class="logout-wrapper">
+      <div v-if="currentUser" class="logout-wrapper">
         <button @click="logout" class="logout-btn">Logout</button>
       </div>
     </div>
+
     <div class="content-wrapper">
-      <!-- Main content that grows to push pagination to the bottom -->
+      <!-- Full-width Hero Image -->
+      <!-- <div class="hero-image-wrapper">
+        <img src="../assets/pexels-arnie-chou-304906-1151513.webp" alt="Poetry Hero" />
+      </div> -->
+
+      <!-- Centered Main Content -->
       <div class="main-content">
         <div class="poem--container" v-if="!isLoading">
-          <!-- Filter dropdown -->
+          <!-- Filter Dropdown -->
           <div class="filter">
             <label for="type-filter">Filter by Type:</label>
             <select id="type-filter" v-model="selectedType">
@@ -17,30 +23,40 @@
               <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
             </select>
           </div>
-          <!-- Filtered poems display -->
-          <div class="container" v-for="poem in paginatedPoems" :key="poem.id">
-            <p class="display">{{ `${truncuatedMessage(poem.poem)}...` }}</p>
-            <!-- Buttons and "Read more" link in the same container -->
-            <div class="button-container">
-              <button v-if="currentUser" class="edit-btn" @click="editPoem(poem)">Edit</button>
-              <router-link
-                :to="{ name: 'PoemDetails', params: { id: poem.id }, query: { page: currentPage } }"
-                class="read-more-button"
-              >
-                Read more
-              </router-link>
-              <button v-if="currentUser" class="delete-btn" @click="deletePoem(poem.id)">
-                Delete
-              </button>
+
+          <!-- Poem Cards -->
+          <div>
+            <div class="poem-cards-wrapper">
+              <div class="container" v-for="poem in paginatedPoems" :key="poem.id">
+                <p class="display">{{ `${truncuatedMessage(poem.poem)}...` }}</p>
+                <div class="button-container">
+                  <button v-if="currentUser" class="edit-btn" @click="editPoem(poem)">Edit</button>
+                  <router-link
+                    :to="{
+                      name: 'PoemDetails',
+                      params: { id: poem.id },
+                      query: { page: currentPage },
+                    }"
+                    class="read-more-button"
+                  >
+                    Read more
+                  </router-link>
+                  <button v-if="currentUser" class="delete-btn" @click="deletePoem(poem.id)">
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <!-- Loading state -->
+
+        <!-- Loading State -->
         <div v-else>
           <p>Loading...</p>
         </div>
       </div>
-      <!-- Pagination pinned at the bottom -->
+
+      <!-- Pagination Section -->
       <div class="pagination" v-if="filteredPoems.length > poemsPerPage">
         <button @click="prevPage" :disabled="currentPage === 1">
           <img
@@ -63,13 +79,10 @@
 </template>
 
 <script>
-import { defineComponent, inject, ref, computed, watch, onMounted } from 'vue'
-
-import { useRoute } from 'vue-router'
+import { defineComponent, ref, computed, onMounted, watch, inject } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { auth } from '@/firebase'
-import { signOut } from 'firebase/auth'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useRouter } from 'vue-router'
+import { signOut, onAuthStateChanged } from 'firebase/auth'
 
 export default defineComponent({
   emits: ['edit-poem', 'delete-poem'],
@@ -79,17 +92,13 @@ export default defineComponent({
     const selectedType = ref('')
     const currentPage = ref(1)
 
-    const poemsPerPage = 4
-
+    const poemsPerPage = ref(4) // Default 4 for mobile/tablet
     const route = useRoute()
     const router = useRouter()
-
     const currentUser = ref(null)
     const authReady = ref(false)
 
-    const truncuatedMessage = (text) => {
-      return text.slice(0, 40)
-    }
+    const truncuatedMessage = (text) => text.slice(0, 40)
 
     const editPoem = (poem) => {
       if (!currentUser.value) return
@@ -101,23 +110,17 @@ export default defineComponent({
       emit('delete-poem', id)
     }
 
-    const uniqueTypes = computed(() => {
-      return [...new Set(poems.value.map((poem) => poem.type))]
-    })
-
+    const uniqueTypes = computed(() => [...new Set(poems.value.map((poem) => poem.type))])
     const filteredPoems = computed(() => {
       if (!selectedType.value) return poems.value
       return poems.value.filter((poem) => poem.type === selectedType.value)
     })
 
-    const totalPages = computed(() => {
-      return Math.ceil(filteredPoems.value.length / poemsPerPage)
-    })
+    const totalPages = computed(() => Math.ceil(filteredPoems.value.length / poemsPerPage.value))
 
     const paginatedPoems = computed(() => {
-      const start = (currentPage.value - 1) * poemsPerPage
-      const end = start + poemsPerPage
-      return filteredPoems.value.slice(start, end)
+      const start = (currentPage.value - 1) * poemsPerPage.value
+      return filteredPoems.value.slice(start, start + poemsPerPage.value)
     })
 
     const logout = async () => {
@@ -131,30 +134,36 @@ export default defineComponent({
     }
 
     const nextPage = () => {
-      if (currentPage.value < totalPages.value) {
-        currentPage.value++
-      }
+      if (currentPage.value < totalPages.value) currentPage.value++
     }
 
     const prevPage = () => {
-      if (currentPage.value > 1) {
-        currentPage.value--
-      }
+      if (currentPage.value > 1) currentPage.value--
     }
 
     watch(selectedType, () => {
-      currentPage.value = 1 // Reset to page 1 when filter changes
+      currentPage.value = 1
     })
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        poemsPerPage.value = 6
+      } else {
+        poemsPerPage.value = 4
+      }
+    }
 
     onMounted(() => {
       if (route.query.page) {
         currentPage.value = parseInt(route.query.page)
       }
-
       onAuthStateChanged(auth, (user) => {
         currentUser.value = user
         authReady.value = true
       })
+      // Set poems per page correctly based on screen size
+      handleResize()
+      window.addEventListener('resize', handleResize)
     })
 
     return {
@@ -176,89 +185,155 @@ export default defineComponent({
       authReady,
       logout,
     }
-  },
+  }
 })
+
 </script>
 
 <style scoped>
+/* General Text */
 p {
   font-size: 1rem;
 }
-/* Ensures the entire content is in a flex container */
+
+/* Entire Wrapper */
 .content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.main-content {
-  flex: 1;
   width: 100%;
 }
 
-/* Poem container styles */
-.poem--container {
+/* Hero Image (hidden on mobile by default) */
+.hero-image-wrapper {
+  display: none;
+}
+.hero-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
+  padding: 1rem;
 }
 
+/* Filter Section */
+.filter {
+  margin: 1rem auto;
+  text-align: center;
+}
+select {
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  width: 10rem;
+}
+label {
+  font-weight: bold;
+}
+
+/* Poem Cards Wrapper */
+.poem-cards-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Each Poem Card */
+.container {
+  flex: 1 1 250px; /* Grow/Shrink but minimum width 250px */
+  max-width: 320px;
+  min-width: 250px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid rgba(154, 166, 178, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Display text inside card */
+.display {
+  font-size: 1rem;
+  text-align: center;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Button container inside each poem */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Buttons */
+button {
+  width: 5rem;
+  height: 2.2rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #0056b3;
+}
+.delete-btn {
+  background-color: tomato;
+}
 .read-more-button {
-  padding: 0.25rem 0.75rem;
-  height: 2rem;
+  padding: 0.5rem 1rem;
   background-color: #007bff;
   color: white;
   text-align: center;
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   display: inline-block;
   cursor: pointer;
 }
 .read-more-button:hover {
   background-color: #0056b3;
 }
-
-.read-more-button:hover {
-  background-color: #0056b3;
-}
-
-.button {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
-
-button img {
-  width: 2rem;
-}
-
 .read-more-button:active {
   background-color: #003f7f;
 }
 
-.container {
-  width: 100%;
-  max-width: 25rem;
-  margin: 1rem auto;
-  padding: 0.5rem;
-  height: 10rem;
-  background-color: #f8fafc;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgba(154, 166, 178, 0.3);
-}
-
+/* Logout button styles */
 .logout-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .logout-btn {
   background-color: #dc3545;
   border: none;
@@ -270,111 +345,75 @@ button img {
   cursor: pointer;
   margin-top: 1rem;
 }
-
 .logout-btn:hover {
   background-color: #c82333;
 }
 
-.display {
-  text-align: center;
-  padding: 0.5rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.edit-btn {
-  background-color: #007bff;
-}
-
-.delete-btn {
-  background-color: tomato;
-}
-
-button img {
-  width: 2rem;
-}
-
-/* Pagination fixed above the footer */
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 2rem 0;
   font-size: 1rem;
-
-  background-color: #fff;
+  width: 100%;
 }
-
-.pagination button {
-  border: none;
-  background: transparent;
+button img {
+  width: 2rem;
 }
-
-/* Button styles */
-.pagination button {
-  padding-bottom: 2rem;
-  border: none;
-  color: #fff;
-  border-radius: 6px;
-
-  cursor: pointer;
-}
-
 .disabled-img {
   filter: grayscale(100%);
   opacity: 0.5;
 }
 
-button {
-  width: 4rem;
-  height: 2rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: white;
+/* Hero fade-in animation */
+.hero-image-wrapper {
+  animation: fadeIn 0.8s ease forwards;
 }
-.delete-btn {
-  background-color: tomato;
-}
-.edit-btn {
-  background-color: #0056b3;
-}
-.filter {
-  margin: 1rem auto;
-  width: fit-content;
-  text-align: center;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-select {
-  padding: 0.5rem 1rem; /* Adjust padding to make the select box larger */
-  border-radius: 6px; /* Rounded corners */
-  margin-left: 1rem;
-  border: 2px solid #ccc; /* Light gray border */
-  background-color: #fff; /* White background */
-  font-size: 1rem; /* Set a readable font size */
-  color: #333; /* Set text color */
-  width: 10rem; /* Make the width auto adjust based on content */
+/* Tablet (≥768px) */
+@media (min-width: 768px) {
+  .container {
+    flex: 1 1 45%; /* 2 cards per row on tablet */
+    max-width: 400px;
+    padding: 2rem;
+  }
 }
 
-label {
-  font-weight: bold; /* Ensures the label text stands out */
-  color: #333; /* Dark color to ensure good visibility */
-  font-size: 1rem; /* Set font size to ensure readability */
-  display: inline-block; /* Ensure the label is treated as a block element */
-  margin-right: 0.5rem; /* Add space between label and select dropdown */
+/* Desktop (≥1024px) */
+@media (min-width: 1024px) {
+  .hero-image-wrapper {
+    display: block;
+    width: 100vw;
+    height: 22rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    flex: 1 1 30%; /* 3 cards per row if space allows */
+    max-width: 450px;
+    padding: 2.5rem;
+  }
 }
 
-option {
-  font-size: 1rem;
-  padding: 0.5rem; /* Padding for options */
+/* Large Desktop (≥1200px) */
+@media (min-width: 1200px) {
+  .container {
+    flex: 1 1 25%;
+    max-width: 500px;
+    padding: 3rem;
+  }
 }
 </style>
