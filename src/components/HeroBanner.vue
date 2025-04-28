@@ -31,7 +31,7 @@ onUnmounted(() => {
 <style scoped>
 .hero-banner {
   width: 100%;
-  height: 22rem;
+  height: 18rem;
   overflow: hidden;
   position: relative;
 }
@@ -47,7 +47,7 @@ onUnmounted(() => {
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 .hero-message h1 {
   font-size: 2.5rem;
