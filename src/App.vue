@@ -96,7 +96,7 @@ export default defineComponent({
           poem: poem,
         }),
       })
-
+      console.log(type, title, poem)
       await getPoem()
     }
     const handlePoemSubmission = async (poemData) => {
@@ -106,7 +106,7 @@ export default defineComponent({
       localStorage.removeItem('loggedIn')
       router.push('/poems') // <- Make sure this route exists
     }
-    const submitSoulFood = async ({ title, content }) => {
+    const submitSoulFood = async ({ title, poem }) => {
       await fetch('https://poems-1eaf3-default-rtdb.firebaseio.com/soulfoods.json', {
         method: 'POST',
         headers: {
@@ -114,7 +114,7 @@ export default defineComponent({
         },
         body: JSON.stringify({
           title: title,
-          content: content,
+          content: poem,
         }),
       })
       await getSoulFood()

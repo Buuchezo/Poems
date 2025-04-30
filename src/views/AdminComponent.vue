@@ -47,7 +47,7 @@ import { signOut } from 'firebase/auth'
 import { auth } from '@/firebase'
 
 export default defineComponent({
-  emits: ['submit-poem'],
+  emits: ['submit-poem', 'submit-soulfood'],
 
   setup(props, { emit }) {
     const router = useRouter()
@@ -81,7 +81,7 @@ export default defineComponent({
       if (validateForm()) {
         const submission = {
           title: poemTitle.value.trim(),
-          content: enteredPoem.value.trim(),
+          poem: enteredPoem.value.trim(),
           createdAt: new Date(),
         }
 
@@ -91,7 +91,7 @@ export default defineComponent({
         } else {
           emit('submit-soulfood', submission)
         }
-
+        console.log(submission)
         // Clear the form
         poemTitle.value = ''
         poemType.value = ''
