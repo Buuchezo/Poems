@@ -31,7 +31,7 @@ onUnmounted(() => {
 <style scoped>
 .hero-banner {
   width: 100%;
-  height: 18rem;
+  height: 10rem;
   overflow: hidden;
   position: relative;
 }

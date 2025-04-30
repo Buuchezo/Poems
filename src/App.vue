@@ -62,7 +62,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const isLoading = ref(false)
-    const poems = ref('[]')
+    const poems = ref([])
     const soulFoods = ref([])
     const showCookieBanner = ref(true)
     const userConsent = ref(null) // 'accepted' or 'denied'
@@ -149,7 +149,7 @@ export default defineComponent({
             id: id,
             type: data[id].type,
             title: data[id].title,
-            poem: data[id].poem.replaceAll(',', ''),
+            poem: (data[id].poem || '').replaceAll(',', ''),
           })
         }
 
